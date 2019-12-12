@@ -24,13 +24,12 @@ public class EtatInter implements Etat {
     @Override
     public String getChain(String chaine) {
         String ret = "KO";
-        if (chaine.length() > 0) {
-            Character c = chaine.charAt(0);
-            if (map.containsKey(c)) {
-                if (chaine.length() == 1)
-                    ret = map.get(c).getChain(chaine);
-                else
+        if (chaine != null) {
+            if (chaine.length() > 0) {
+                Character c = chaine.charAt(0);
+                if (map.containsKey(c)) {
                     ret = map.get(c).getChain(chaine.substring(1, chaine.length()));
+                }
             }
         }
         return ret;

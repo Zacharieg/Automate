@@ -50,11 +50,21 @@ public class MonApplication {
         annee[6][7] = "0123456789";
 
         String[][] mail = new String[6][6];
-        mail[0][1] = "abcdefghifklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWKYZ";
-        mail[1][1] = "abcdefghifklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWKYZ"; mail[1][2] = "@";
-        mail[2][3] = "abcdefghifklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWKYZ";
-        mail[3][2] = "."; mail[3][3] = "abcdefghifklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWKYZ";
-        mail[5][]
+        mail[0][1] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWKYZ";
+        mail[1][1] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWKYZ"; mail[1][2] = "@";
+        mail[2][3] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWKYZ";
+        mail[3][4] = "."; mail[3][3] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWKYZ";
+        mail[4][5] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWKYZ";
+        mail[5][4] = ".";
+
+        String[][] monome = new String[5][5];
+        monome[0][1] = "+-";
+        monome[1][2] = "1"; monome[1][3] = "2"; monome[1][4] = "3456789";
+        monome[2][4] = "0123456789";
+        monome[3][4] = "012345";
+
+        String[][] xCarre = new String[5][5];
+        xCarre[0][1] = "X"; xCarre[1][2] = "*"; xCarre[2][3] = "*"; xCarre[3][4] = "2";
 
         boolean arret = false;
         Automate aut = new Automate(smiley);
@@ -68,11 +78,12 @@ public class MonApplication {
             System.out.println("2. Heure");
             System.out.println("3. Date");
             System.out.println("4. Email");
-            System.out.println("5. Arrêt du programme");
+            System.out.println("5. Polynome");
+            System.out.println("6. Arrêt du programme");
             System.out.println("--------------------------------------------");
             System.out.print("Entrez le type de chaine à analyser: ");
 
-            while (type <= 0 || type > 5) {
+            while (type <= 0 || type > 6) {
 
                 type = scanner.nextInt();
 
@@ -94,6 +105,20 @@ public class MonApplication {
                 case 4 :
                     aut = new Automate(mail);
                     break;
+                case 5:
+                    ArrayList<Automate> list1 = new ArrayList<Automate>();
+                    list1.add(new Automate(monome));
+                    list1.add(new Automate(xCarre));
+                    Automate monomeCarre = new Automate(list1);
+                    ArrayList<Automate> list2 = new ArrayList<Automate>();
+                    list2.add(new Automate(monome));
+                    list2.add(new Automate(monome));
+                    Automate monomeInf = new Automate(list2, "X");
+                    ArrayList<Automate> list3 = new ArrayList<Automate>();
+                    list3.add(monomeCarre);
+                    list3.add(monomeInf);
+                    aut = new Automate(list3);
+                    break;
                 default:
                     arret = true;
                     break;
@@ -103,6 +128,7 @@ public class MonApplication {
                 System.out.print("Votre chaine: ");
 
                 String chaine = scanner.next();
+
 
                 System.out.println(String.format("Ta chaine est %s", aut.verify(chaine)));
             }
